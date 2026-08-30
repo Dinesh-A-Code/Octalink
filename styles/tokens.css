@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Octalink design tokens
+   Light is the source of truth; dark is a re-composition, not an inversion.
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  --bg: #fafaf8;
+  --bg-rgb: 250 250 248;
+  --surface: #f1f0ec;
+  --surface-2: #e8e6e0;
+  --fg: #0a0a0b;
+  --fg-rgb: 10 10 11;
+  --muted: #6b6b70;
+  /* Contrast-checked against --bg: 4.7:1, clears AA for small text. */
+  --faint: #70707a;
+  --border: rgb(10 10 11 / 0.12);
+  --border-strong: rgb(10 10 11 / 0.24);
+  --accent: #3452ff;
+  --accent-fg: #ffffff;
+  --grain-opacity: 0.035;
+
+  /* 3D scene — read by the WebGL layer, kept beside the DOM palette
+     so the two never drift apart. */
+  --scene-a: #3452ff;
+  --scene-b: #0a0a0b;
+  --scene-bg: #fafaf8;
+
+  /* On a light ground the rim glow has nothing to glow against, so the
+     drawn edges carry the form and the fill sits heavier. */
+  --scene-core: 0.26;
+  --scene-edge: 0.78;
+  --scene-field: 0.5;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0b;
+  --bg-rgb: 10 10 11;
+  --surface: #131316;
+  --surface-2: #1c1c20;
+  --fg: #f5f4f0;
+  --fg-rgb: 245 244 240;
+  --muted: #8a8a8f;
+  /* Contrast-checked against --bg: 4.8:1, clears AA for small text. */
+  --faint: #7d7d84;
+  --border: rgb(245 244 240 / 0.12);
+  --border-strong: rgb(245 244 240 / 0.26);
+  --accent: #5b7cff;
+  --accent-fg: #06060a;
+  --grain-opacity: 0.05;
+
+  --scene-a: #5b7cff;
+  --scene-b: #f5f4f0;
+  --scene-bg: #0a0a0b;
+
+  /* On a dark ground the fresnel rim does the work, so the fill drops back
+     and the lattice can be lighter without turning into a glare. */
+  --scene-core: 0.18;
+  --scene-edge: 0.9;
+  --scene-field: 0.42;
+
+  color-scheme: dark;
+}
+
+:root {
+  /* Fluid editorial type scale */
+  /* Height is part of the constraint, not just width: on a short laptop the
+     headline must not grow so tall it pushes the copy and CTAs off screen. */
+  --text-display: clamp(2.75rem, min(8.5vw, 12vh), 8rem);
+  --text-h1: clamp(2.5rem, 5.5vw, 4.5rem);
+  --text-h2: clamp(2rem, 3.8vw, 3.25rem);
+  --text-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --text-lead: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-eyebrow: 0.6875rem;
+
+  /* Rhythm */
+  --section-y: clamp(6rem, 10vw, 10rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --container: 1440px;
+  --radius: 2px;
+
+  /* Motion — one language, defined once */
+  --dur-fast: 0.32s;
+  --dur-base: 0.6s;
+  --dur-slow: 1.1s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
