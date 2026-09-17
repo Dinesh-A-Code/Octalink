@@ -8,6 +8,7 @@ export type ProjectCategory = "live" | "independent" | "experiment";
 export type ProjectStatus =
   | "live"
   | "in-development"
+  | "landing-live"
   | "case-study-soon"
   | "coming-soon"
   | "prototype"

@@ -12,10 +12,26 @@ import { getMotionTier, motionFor, TOGGLE } from "@/lib/motion/tier";
 const STATUS_LABEL: Record<ProjectStatus, string | null> = {
   live: null, // a live URL already says this
   "in-development": "In development",
+  "landing-live": "Landing page live · In development",
   "case-study-soon": "Case study coming soon",
   "coming-soon": "Coming soon",
   prototype: "Prototype",
   archived: "Archived",
+};
+
+/**
+ * What the primary link is called, keyed by status so the label matches what
+ * a visitor will actually find — a project still "in development" gets a
+ * preview, not a finished site.
+ */
+const LIVE_LINK_LABEL: Record<ProjectStatus, string> = {
+  live: "Visit site",
+  "in-development": "Live preview",
+  "landing-live": "Visit site",
+  "case-study-soon": "Visit site",
+  "coming-soon": "Visit site",
+  prototype: "Visit site",
+  archived: "Visit site",
 };
 
 /** Shared entry point so every trigger in the section fires on the same line. */
@@ -183,11 +199,13 @@ function ProjectRow({
   // Explicit destinations rather than one row-wide link: a project can have
   // a live site, a case study and a repo, and those are not interchangeable.
   const links = [
-    project.liveUrl ? { label: "Visit site", href: project.liveUrl } : null,
+    project.liveUrl
+      ? { label: LIVE_LINK_LABEL[project.status], href: project.liveUrl }
+      : null,
     project.caseStudyUrl
       ? { label: "Read case study", href: project.caseStudyUrl }
       : null,
-    project.repoUrl ? { label: "View source", href: project.repoUrl } : null,
+    project.repoUrl ? { label: "GitHub", href: project.repoUrl } : null,
   ].filter((link): link is { label: string; href: string } => link !== null);
 
   const statusLabel = STATUS_LABEL[project.status];

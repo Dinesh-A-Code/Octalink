@@ -29,7 +29,7 @@ export const navLinks: NavLink[] = [
 
 /** Empty href renders as a non-interactive label until real profiles exist. */
 export const socialLinks: NavLink[] = [
-  { label: "GitHub", href: "" },
+  { label: "GitHub", href: "https://github.com/Dinesh-A-Code" },
   { label: "LinkedIn", href: "" },
   { label: "Dribbble", href: "" },
   { label: "X", href: "" },

@@ -11,37 +11,62 @@ import type { Project } from "@/types/content";
  */
 export const projects: Project[] = [
   {
-    id: "recordmate",
-    name: "RecordMate",
+    id: "notemate",
+    name: "NoteMate",
     category: "independent",
     status: "in-development",
     kind: "Independent project",
-    // Sourced from the project's own README — confirm before this goes live.
+    // Matches the repo's own description — confirm before this goes live.
     summary:
-      "A hyperlocal platform for students coordinating help with physical college record books. Requesters post tasks, nearby providers accept them, and the two sides chat and rate each other once the work is done.",
+      "A campus platform connecting students who need help with physical college record books to nearby students willing to take on the work. Requesters post tasks, providers accept them, and the two sides chat and rate each other once it's done.",
     year: null,
+    // Verified against the NoteMate repository under Dinesh-A-Code.
     technologies: [
       "React",
       "Vite",
       "Tailwind CSS",
       "Node.js",
       "Express",
-      "MongoDB",
-      "Socket.IO",
+      "Firebase",
     ],
     liveUrl: null,
     caseStudyUrl: null,
-    repoUrl: null,
+    repoUrl: "https://github.com/Dinesh-A-Code/NoteMate",
     // No real asset yet — renders the branded placeholder.
     preview: null,
     detail: null,
     published: true,
     needs: [
-      "Confirm the summary and tech list (taken from the repo README)",
       "Year or date range",
       "Screenshots",
       "Video walkthrough",
-      "GitHub URL, if the repo should be public",
+      "Problem / approach / implementation write-up for a detail page",
+    ],
+  },
+
+  {
+    id: "sd-flowers",
+    name: "SD Flowers",
+    category: "independent",
+    status: "in-development",
+    kind: "E-commerce storefront",
+    summary:
+      "An e-commerce storefront for handmade bouquets, hair accessories and keychains. Browsing, product detail and checkout are fully designed; checkout and order handling are currently simulated rather than backed by a live payment system.",
+    year: null,
+    // Verified against the sd-flowers repository under Dinesh-A-Code.
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    liveUrl: "https://sdflowers.netlify.app/",
+    caseStudyUrl: null,
+    repoUrl: "https://github.com/Dinesh-A-Code/sd-flowers",
+    // No real asset yet — renders the branded placeholder.
+    preview: null,
+    detail: null,
+    published: true,
+    needs: [
+      "Wire checkout to a real payment/backend integration before calling it functional",
+      "Fix missing SPA-fallback routing (deep links 404 on refresh)",
+      "Year or date range",
+      "Screenshots",
       "Problem / approach / implementation write-up for a detail page",
     ],
   },
@@ -50,14 +75,17 @@ export const projects: Project[] = [
     id: "gotax",
     name: "GoTax",
     category: "live",
-    status: "case-study-soon",
+    status: "landing-live",
     kind: "AI tax platform",
-    // Deliberately no summary: the row carries the name and what it is until
-    // there is a written account of our actual contribution to stand behind.
-    summary: null,
+    // The landing page is live; the assistant it describes is not — do not
+    // upgrade this wording without a working product to point at.
+    summary:
+      "A plain-language income tax and GST assistant for India. The landing page is live and collecting signups; the assistant itself is still pre-launch.",
     year: null,
+    // Not listed: this describes the marketing page's own stack, not
+    // necessarily the eventual product's — leave empty until that's known.
     technologies: [],
-    liveUrl: null,
+    liveUrl: "https://gotax.site/",
     caseStudyUrl: null,
     repoUrl: null,
     // No real asset yet — renders the branded placeholder.
@@ -66,11 +94,10 @@ export const projects: Project[] = [
     published: true,
     needs: [
       "Exactly what Octalink built vs. what already existed",
-      "Live URL",
-      "One-line summary for the row",
-      "Technologies actually used",
+      "Technologies actually used, once the product itself is built",
       "Year or date range",
       "Screenshots for the case study",
+      "Update this entry's status once the assistant itself is live",
     ],
   },
 
