@@ -38,6 +38,8 @@ export type ProjectPreviewSource =
  * without anything being filled in speculatively.
  */
 export interface ProjectDetail {
+  /** The plain "what is this, who is it for" framing shown first on the detail page. */
+  overview: string | null;
   problem: string | null;
   approach: string | null;
   implementation: string | null;

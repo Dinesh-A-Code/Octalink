@@ -2,6 +2,7 @@ import { SITE_URL, site, socialLinks } from "@/content/site";
 import { services } from "@/content/services";
 import { faqs } from "@/content/faq";
 import { team } from "@/content/team";
+import type { Project } from "@/types/content";
 
 /**
  * ProfessionalService describes a studio selling services more precisely
@@ -47,5 +48,28 @@ export function faqJsonLd() {
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer },
     })),
+  };
+}
+
+/**
+ * CreativeWork rather than SoftwareApplication: not every project here can
+ * back up an "application" claim yet, and CreativeWork makes no such claim.
+ * Only fields backed by real project data are included — no ratings,
+ * reviews, download counts, or invented application categories.
+ */
+export function projectJsonLd(project: Project) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${SITE_URL}/work/${project.id}#project`,
+    name: project.name,
+    ...(project.summary ? { description: project.summary } : {}),
+    ...(project.liveUrl ? { url: project.liveUrl } : {}),
+    ...(project.repoUrl ? { codeRepository: project.repoUrl } : {}),
+    ...(project.technologies.length > 0
+      ? { keywords: project.technologies.join(", ") }
+      : {}),
+    creator: { "@type": "Organization", name: site.name, url: SITE_URL },
+    isPartOf: { "@id": `${SITE_URL}/#organization` },
   };
 }

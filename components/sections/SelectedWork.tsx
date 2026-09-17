@@ -1,38 +1,15 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { publishedProjects } from "@/content/projects";
-import type { Project, ProjectStatus } from "@/types/content";
+import type { Project } from "@/types/content";
 import { Section } from "@/components/primitives/Section";
 import { SplitReveal } from "@/components/primitives/SplitReveal";
 import { ProjectPreview } from "@/components/sections/ProjectPreview";
 import { gsap, useGSAP, MOTION, registerGsap } from "@/lib/gsap/gsapConfig";
 import { getMotionTier, motionFor, TOGGLE } from "@/lib/motion/tier";
-
-const STATUS_LABEL: Record<ProjectStatus, string | null> = {
-  live: null, // a live URL already says this
-  "in-development": "In development",
-  "landing-live": "Landing page live · In development",
-  "case-study-soon": "Case study coming soon",
-  "coming-soon": "Coming soon",
-  prototype: "Prototype",
-  archived: "Archived",
-};
-
-/**
- * What the primary link is called, keyed by status so the label matches what
- * a visitor will actually find — a project still "in development" gets a
- * preview, not a finished site.
- */
-const LIVE_LINK_LABEL: Record<ProjectStatus, string> = {
-  live: "Visit site",
-  "in-development": "Live preview",
-  "landing-live": "Visit site",
-  "case-study-soon": "Visit site",
-  "coming-soon": "Visit site",
-  prototype: "Visit site",
-  archived: "Visit site",
-};
+import { getExternalProjectLinks, getStatusLabel } from "@/lib/projectLinks";
 
 /** Shared entry point so every trigger in the section fires on the same line. */
 const ENTER = "top 84%";
@@ -196,19 +173,11 @@ function ProjectRow({
     { scope: row },
   );
 
-  // Explicit destinations rather than one row-wide link: a project can have
-  // a live site, a case study and a repo, and those are not interchangeable.
-  const links = [
-    project.liveUrl
-      ? { label: LIVE_LINK_LABEL[project.status], href: project.liveUrl }
-      : null,
-    project.caseStudyUrl
-      ? { label: "Read case study", href: project.caseStudyUrl }
-      : null,
-    project.repoUrl ? { label: "GitHub", href: project.repoUrl } : null,
-  ].filter((link): link is { label: string; href: string } => link !== null);
-
-  const statusLabel = STATUS_LABEL[project.status];
+  // External destinations (live site, case study, repo) stay separate from
+  // the internal detail-page link below: a project can have all three, and
+  // none of them are interchangeable with "read more about it on our site".
+  const externalLinks = getExternalProjectLinks(project);
+  const statusLabel = getStatusLabel(project.status);
 
   return (
     <li ref={row} className="group relative">
@@ -280,27 +249,37 @@ function ProjectRow({
               </ul>
             ) : null}
 
-            {links.length > 0 ? (
-              <div data-body className="mt-7 flex flex-wrap gap-x-7 gap-y-3">
-                {links.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="group/cta inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-accent"
+            <div data-body className="mt-7 flex flex-wrap gap-x-7 gap-y-3">
+              <Link
+                href={`/work/${project.id}`}
+                className="group/cta inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-accent"
+              >
+                View project
+                <span
+                  aria-hidden="true"
+                  className="text-xs transition-transform duration-500 ease-out-expo group-hover/cta:translate-x-1"
+                >
+                  &rarr;
+                </span>
+              </Link>
+              {externalLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="group/cta inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-accent"
+                >
+                  {link.label}
+                  <span
+                    aria-hidden="true"
+                    className="text-xs transition-transform duration-500 ease-out-expo group-hover/cta:translate-x-1"
                   >
-                    {link.label}
-                    <span
-                      aria-hidden="true"
-                      className="text-xs transition-transform duration-500 ease-out-expo group-hover/cta:translate-x-1"
-                    >
-                      &rarr;
-                    </span>
-                  </a>
-                ))}
-              </div>
-            ) : null}
+                    &rarr;
+                  </span>
+                </a>
+              ))}
+            </div>
 
             {project.year ? (
               <span

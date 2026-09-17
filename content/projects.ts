@@ -34,7 +34,18 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Dinesh-A-Code/NoteMate",
     // No real asset yet — renders the branded placeholder.
     preview: null,
-    detail: null,
+    detail: {
+      // Verified against the repository's own README — nothing here is
+      // inferred. Problem / approach / implementation stay null until
+      // there's a real write-up to put there.
+      overview:
+        "NoteMate connects students who need help with physical college record books to nearby students willing to take on the work. The frontend is built with React, Vite and Tailwind CSS; the backend runs on Node.js and Express, with Firebase (Firestore, Authentication and Storage) as the data and auth layer. The repository includes an automated end-to-end test suite (Playwright).",
+      problem: null,
+      approach: null,
+      implementation: null,
+      screenshots: [],
+      video: null,
+    },
     published: true,
     needs: [
       "Year or date range",
@@ -60,7 +71,17 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Dinesh-A-Code/sd-flowers",
     // No real asset yet — renders the branded placeholder.
     preview: null,
-    detail: null,
+    detail: {
+      // Verified against the deployed preview and its repository. Problem /
+      // approach / implementation stay null until there's a real write-up.
+      overview:
+        "SD Flowers is an e-commerce storefront for handmade bouquets, hair accessories and keychains, built with React, TypeScript, Vite and Tailwind CSS. Browsing, product detail and checkout are fully designed and deployed as a live preview on Netlify; checkout and order handling are currently simulated in the browser rather than backed by a live payment system.",
+      problem: null,
+      approach: null,
+      implementation: null,
+      screenshots: [],
+      video: null,
+    },
     published: true,
     needs: [
       "Wire checkout to a real payment/backend integration before calling it functional",
@@ -90,7 +111,18 @@ export const projects: Project[] = [
     repoUrl: null,
     // No real asset yet — renders the branded placeholder.
     preview: null,
-    detail: null,
+    detail: {
+      // Verified directly against the live site. Problem / approach /
+      // implementation stay null until the product itself exists to
+      // describe — do not upgrade this wording before that's true.
+      overview:
+        "GoTax is a plain-language income tax and GST assistant for India, currently presented through a live landing page that describes the planned product and collects early signups. The assistant itself hasn't launched — the chat demo shown on the landing page is explicitly labelled as an illustrative preview, not a working feature.",
+      problem: null,
+      approach: null,
+      implementation: null,
+      screenshots: [],
+      video: null,
+    },
     published: true,
     needs: [
       "Exactly what Octalink built vs. what already existed",
@@ -179,3 +211,20 @@ export const projects: Project[] = [
 ];
 
 export const publishedProjects: Project[] = projects.filter((p) => p.published);
+
+/**
+ * Whether a project's detail page has enough real content to be worth
+ * indexing/linking from the sitemap — a project that's only ever had `detail`
+ * set to `null` stays out until there's an overview or more to read.
+ */
+export function hasMeaningfulDetail(project: Project): boolean {
+  const detail = project.detail;
+  if (!detail) return false;
+  return Boolean(
+    detail.overview ||
+      detail.problem ||
+      detail.approach ||
+      detail.implementation ||
+      detail.screenshots.length > 0,
+  );
+}

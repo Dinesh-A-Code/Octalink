@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { navLinks, site } from "@/content/site";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils/cn";
@@ -50,18 +51,18 @@ export function Header() {
       )}
     >
       <div className="container-x flex items-center justify-between gap-6">
-        <a
-          href="#top"
+        <Link
+          href="/#top"
           className="font-display text-[1.0625rem] font-semibold uppercase tracking-[0.22em]"
         >
           {site.name}
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-9">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className="group relative text-[0.8125rem] uppercase tracking-[0.12em] text-muted transition-colors duration-300 hover:text-fg"
                 >
@@ -70,19 +71,19 @@ export function Header() {
                     aria-hidden="true"
                     className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-[400ms] ease-out-expo group-hover:scale-x-100 group-focus-visible:scale-x-100"
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="hidden rounded-sharp border border-line-strong px-5 py-2.5 text-[0.75rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 hover:border-accent hover:text-accent sm:inline-block"
           >
             Start a project
-          </a>
+          </Link>
           <ThemeToggle />
           <button
             type="button"
@@ -117,16 +118,16 @@ export function Header() {
       >
         <nav aria-label="Mobile" className="container-x py-8">
           <ul className="flex flex-col gap-1">
-            {[...navLinks, { label: "Contact", href: "#contact" }].map(
+            {[...navLinks, { label: "Contact", href: "/#contact" }].map(
               (link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
                     className="block border-b border-line py-4 font-display text-2xl"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ),
             )}

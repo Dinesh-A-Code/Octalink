@@ -24,7 +24,7 @@ export function Footer() {
           <FooterColumn title="Services">
             {services.map((s) => (
               <li key={s.id}>
-                <AnimatedLink href="#services" className="text-sm text-muted">
+                <AnimatedLink href="/#services" className="text-sm text-muted">
                   {s.title}
                 </AnimatedLink>
               </li>

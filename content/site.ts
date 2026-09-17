@@ -19,12 +19,15 @@ export const site = {
   operators: ["Dinesh", "David"],
 } as const;
 
+// Prefixed with "/" so these still resolve correctly from a project detail
+// page — a bare "#work" would try to scroll a section that isn't on that
+// page instead of navigating back to the homepage.
 export const navLinks: NavLink[] = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
+  { label: "About", href: "/#about" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 /** Empty href renders as a non-interactive label until real profiles exist. */
